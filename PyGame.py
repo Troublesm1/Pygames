@@ -8,8 +8,7 @@ screen = pygame.display.set_mode((800,400))
 pygame.display.set_caption('Runner')
 clock = pygame.time.Clock()
 
-test_surface = pygame.Surface((100,200))
-test_surface.fill('Red')
+test_surface = pygame.image.load('graphics/skyfinal.png')
 
 while True:
     for event in pygame.event.get():
