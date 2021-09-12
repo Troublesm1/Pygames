@@ -33,5 +33,8 @@ while True:
     player_rect.left += 1
     screen.blit(player_surf,player_rect)
 
+    if player_rect.colliderect(snail_rect):
+        print('collision')
+
     pygame.display.update()
     clock.tick(60) #Setting the frame rate
