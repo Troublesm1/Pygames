@@ -38,8 +38,9 @@ while True:
     snail_rect.x -=2.5
     if snail_rect.right <= 0: snail_rect.left = 800
 
-    #player_rect.left += 1
-    
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_SPACE]:
+        print('jump')
 
     #if player_rect.colliderect(snail_rect):
     #    print('collision')
