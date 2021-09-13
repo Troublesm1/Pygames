@@ -28,7 +28,9 @@ while True:
         #if event.type == pygame.MOUSEMOTION:
             #if player_rect.collidepoint(event.pos): print('collison')
         if event.type == pygame.KEYDOWN:
-            print('key down')
+            if event.key == pygame.K_SPACE:
+                print('jump')
+                
         if event.type == pygame.KEYUP:
             print('key up')
 
