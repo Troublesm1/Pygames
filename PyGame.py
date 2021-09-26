@@ -33,7 +33,6 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and player_rect.bottom >= 300:
                 player_gravity = -20
-        
 
     screen.blit(sky_surface, (0,0))
     screen.blit(ground_surface, (0,300))
@@ -44,11 +43,17 @@ while True:
     snail_rect.x -=2.5
     if snail_rect.right <= 0: snail_rect.left = 800
 
-    #Player
+    # PLAYER
     player_gravity +=1
     player_rect.y += player_gravity
     if player_rect.bottom >= 300: player_rect.bottom = 300
     screen.blit(player_surf,player_rect)
+
+    # COLLISION
+
+    if snail_rect.colliderect(player_rect):
+        pygame.quit()
+        exit()
 
     pygame.display.update()
     clock.tick(60) #Setting the frame rate
