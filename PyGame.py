@@ -7,6 +7,7 @@ def display_score():
     score_surf = test_font.render(f'Score: {current_time}',False, (64,64,64))
     score_rect = score_surf.get_rect(center = (400,50))
     screen.blit(score_surf,score_rect)
+    return current_time
 
 pygame.init()
 screen = pygame.display.set_mode((800,400))
@@ -15,6 +16,7 @@ clock = pygame.time.Clock()
 test_font = pygame.font.Font('font\Pixeltype.ttf',50)
 game_active = False
 start_time = 0
+score = 0
 
 
 sky_surface = pygame.image.load('graphics/sky.png').convert()
@@ -39,7 +41,7 @@ game_name = test_font.render('Pixel Man',False,(111,196,169))
 game_name_rect = game_name.get_rect(center = (400,80))
 
 game_message = test_font.render('Press space to run',False,(111,196,196))
-game_message_rect = game_message.get_rect(center = (400,320))
+game_message_rect = game_message.get_rect(center = (400,340))
 
 while True:
     for event in pygame.event.get():
@@ -65,7 +67,7 @@ while True:
         # pygame.draw.rect(screen,'#c0e8ec',score_rect,)
         # pygame.draw.rect(screen,'#c0e8ec',score_rect,10)
         # screen.blit(score_surf,score_rect)
-        display_score()
+        score = display_score()
 
         snail_rect.x -=3.8
         if snail_rect.right <= 0: snail_rect.left = 800
@@ -83,8 +85,13 @@ while True:
     else:
         screen.fill((94,129,162))
         screen.blit(player_stand,player_stand_rect)
+
+        score_message = test_font.render(f'Your Score: {score}',False,(111,196,169))
+        score_message_rect = score_message.get_rect(center = (400, 330))
         screen.blit(game_name,game_name_rect)
-        screen.blit(game_message,game_message_rect)
+
+        if score == 0: screen.blit(game_message,game_message_rect)
+        else: screen.blit(score_message,score_message_rect)
 
     pygame.display.update()
     clock.tick(60) #Setting the frame rate
