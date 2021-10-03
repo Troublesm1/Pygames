@@ -24,13 +24,15 @@ ground_surface = pygame.image.load('graphics/ground.png').convert_alpha()
 # score_rect = score_surf.get_rect(center =(400, 50))
 
 snail_surf = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
-snail_rect = snail_surf.get_rect(bottomright =(600, 300))
+snail_rect = snail_surf.get_rect(bottomright =(600,300))
 
 player_surf = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha()
-player_rect = player_surf.get_rect(midbottom = (70, 300))
+player_rect = player_surf.get_rect(midbottom = (70,300))
 player_gravity = 0
+
 # INTRO SCREEN 
 player_stand = pygame.image.load('graphics/Player/player_stand.png').convert_alpha()
+player_stand = pygame.transform.rotozoom(player_stand,0,2)
 player_stand_rect = player_stand.get_rect(center = (400,200))
 
 
