@@ -16,6 +16,8 @@ def obstacle_movement(obstacle_list):
 
             screen.blit(snail_surf,obstacle_rect)
 
+        obstacle_list = [obstacle for obstacle in obstacle_list if obstacle.x > -100]
+
         return obstacle_list
     else: return []
 
@@ -37,7 +39,7 @@ ground_surface = pygame.image.load('graphics/ground.png').convert_alpha()
 
 #OBSTACLES
 snail_surf = pygame.image.load('graphics/snail/snail1.png').convert_alpha()
-snail_rect = snail_surf.get_rect(bottomright =(600,300))
+fly_surface = pygame.image.load('graphics/fly/fly1.png').convert_alpha()
 
 obstacle_rect_list = []
 
@@ -55,7 +57,7 @@ game_name_rect = game_name.get_rect(center = (400,80))
 
 #TIMER
 obstacle_timer = pygame.USEREVENT + 1
-pygame.time.set_timer(obstacle_timer, 900)
+pygame.time.set_timer(obstacle_timer, 1500)
 
 game_message = test_font.render('Press space to run',False,(111,196,196))
 game_message_rect = game_message.get_rect(center = (400,340))
@@ -75,11 +77,14 @@ while True:
         else:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 game_active = True
-                snail_rect.left = 800
+                
                 start_time = int(pygame.time.get_ticks() / 1000)
 
         if event.type == obstacle_timer and game_active:
-            obstacle_rect_list.append(snail_surf.get_rect(bottomright =(randint(900,1100),300)))
+            if randint (0,2):
+                obstacle_rect_list.append(snail_surf.get_rect(bottomright =(randint(900,1100),300)))
+            else: 
+                obstacle_rect_list.append(fly_surface.get_rect(bottomright =(randint(900,1100),210)))
 
     if game_active:
         screen.blit(sky_surface, (0,0))
@@ -103,8 +108,7 @@ while True:
         screen.blit(player_surf,player_rect)
 
         # COLLISION
-        if snail_rect.colliderect(player_rect):
-            game_active = False
+        
     else:
         screen.fill((94,129,162))
         screen.blit(player_stand,player_stand_rect)
