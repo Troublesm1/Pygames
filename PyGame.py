@@ -40,6 +40,10 @@ player_stand_rect = player_stand.get_rect(center = (400,200))
 game_name = test_font.render('Pixel Man',False,(111,196,169))
 game_name_rect = game_name.get_rect(center = (400,80))
 
+#Timer
+obstacle_timer = pygame.USEREVENT + 1
+pygame.time.set_timer(obstacle_timer, 900)
+
 game_message = test_font.render('Press space to run',False,(111,196,196))
 game_message_rect = game_message.get_rect(center = (400,340))
 
@@ -60,6 +64,9 @@ while True:
                 game_active = True
                 snail_rect.left = 800
                 start_time = int(pygame.time.get_ticks() / 1000)
+
+        if event.type == obstacle_timer and game_active:
+            print('test')
 
     if game_active:
         screen.blit(sky_surface, (0,0))
