@@ -14,16 +14,20 @@ def obstacle_movement(obstacle_list):
         for obstacle_rect in obstacle_list:
             obstacle_rect.x -= 5
 
-            if obstacle_rect.bottom == 300: 
-                screen.blit(snail_surf,obstacle_rect)
-            else: 
-                screen.blit(fly_surface,obstacle_rect)
+            if obstacle_rect.bottom == 300: screen.blit(snail_surf,obstacle_rect)
+            else: screen.blit(fly_surface,obstacle_rect)
 
 
         obstacle_list = [obstacle for obstacle in obstacle_list if obstacle.x > -100]
 
         return obstacle_list
     else: return []
+
+def collisions(player,obstacles):
+    if obstacles:
+        for obstacles_rect in obstacles:
+            if player.colliderect(obstacles_rect): return False
+    return True
 
 pygame.init()
 screen = pygame.display.set_mode((800,400))
@@ -111,10 +115,14 @@ while True:
         screen.blit(player_surf,player_rect)
 
         # COLLISION
+        game_active = collisions(player_rect,obstacle_rect_list)
         
     else:
         screen.fill((94,129,162))
         screen.blit(player_stand,player_stand_rect)
+        obstacle_rect_list.clear()
+        player_rect.midbottom = (80,300)
+        player_gravity = 0
 
         score_message = test_font.render(f'Your Score: {score}',False,(111,196,169))
         score_message_rect = score_message.get_rect(center = (400, 330))
