@@ -51,7 +51,14 @@ fly_surface = pygame.image.load('graphics/Fly/Fly1.png').convert_alpha()
 
 obstacle_rect_list = []
 
-player_surf = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha()
+#PLAYER MOVEMENTS
+player_walk_1 = pygame.image.load('graphics/Player/player_walk_1.png').convert_alpha()
+player_walk_2 = pygame.image.load('graphics/Player/player_walk_2.png').convert_alpha()
+player_walk = [player_walk_1,player_walk_2]
+player_index = 0
+player_jump = pygame.image.load('graphics/Player/jump.png').convert_alpha()
+
+player_surf = player_walk[player_index]
 player_rect = player_surf.get_rect(midbottom = (70,300))
 player_gravity = 0
 
