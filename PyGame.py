@@ -1,6 +1,6 @@
 import pygame
 import random
-from random import randint
+from random import randint, choice
 from sys import exit
 
 
@@ -16,7 +16,7 @@ class Player(pygame.sprite.Sprite):
         self.player_jump = pygame.image.load('graphics/Player/jump.png').convert_alpha()
 
         self.image = self.player_walk[self.player_index]
-        self.rect = self.image.get_rect(midbottom = (200, 300))
+        self.rect = self.image.get_rect(midbottom = (80, 300))
         self.gravity = 0
 
     def player_input(self):
@@ -101,6 +101,13 @@ def collisions(player,obstacles):
         for obstacles_rect in obstacles:
             if player.colliderect(obstacles_rect): return False
     return True
+
+def collision_sprite():
+    if pygame.sprite.spritecollide(player.sprite,obstacle_group,False):
+        obstacle_group.empty()
+        return False
+    else: return True
+
 
 def player_animation():
     global player_surf, player_index
@@ -200,7 +207,7 @@ while True:
                 start_time = int(pygame.time.get_ticks() / 1000)
         if game_active:
             if event.type == obstacle_timer:
-                obstacle_group.add(Obstical('fly'))
+                obstacle_group.add(Obstical(choice(['fly','snail','snail'])))
                 # if randint (0,2):
                 #     obstacle_rect_list.append(snail_surf.get_rect(bottomright =(randint(900,1100),300)))
                 # else:
@@ -230,14 +237,14 @@ while True:
         # screen.blit(snail_surf,snail_rect)
 
         #OBSTACLE MOVEMENT
-        obstacle_rect_list = obstacle_movement(obstacle_rect_list)
+        # obstacle_rect_list = obstacle_movement(obstacle_rect_list)
 
         # PLAYER
-        player_gravity +=1
-        player_rect.y += player_gravity
-        if player_rect.bottom >= 300: player_rect.bottom = 300
-        player_animation()
-        screen.blit(player_surf,player_rect)
+        # player_gravity +=1
+        # player_rect.y += player_gravity
+        # if player_rect.bottom >= 300: player_rect.bottom = 300
+        # player_animation()
+        # screen.blit(player_surf,player_rect)
         player.draw(screen)
         player.update()
 
@@ -245,7 +252,8 @@ while True:
         obstacle_group.update()
 
         # COLLISION
-        game_active = collisions(player_rect,obstacle_rect_list)
+        game_active = collision_sprite()
+        # game_active = collisions(player_rect,obstacle_rect_list)
         
     else:
         screen.fill((94,129,162))
